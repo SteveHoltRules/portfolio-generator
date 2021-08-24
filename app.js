@@ -24,5 +24,10 @@ const generatePage = (userName, githubName) => {
 
 };
 
-console.log(generatePage(profileName, github));
+
+fs.writeFile('index.html', generatePage(profileName, github), err => {
+  if (err) throw err;
+
+  console.log('Portfolio complete! Check out teh index.html to see the output!')
+});
 
