@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const profileDataArgs = process.argv.slice(2, process.argv.length);
 
 const [profileName, github] = profileDataArgs;
@@ -23,3 +25,4 @@ const generatePage = (userName, githubName) => {
 };
 
 console.log(generatePage(profileName, github));
+
