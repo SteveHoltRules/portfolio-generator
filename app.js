@@ -33,7 +33,11 @@ const promptUser = () => {
   ]);
 };
 
-const promptProject = () => {
+
+const promptProject = portfolioData => {
+  if (!portfolioData.projects) {
+    portfolioData.projects = [];
+  }
   console.log(`
   =================
   Add a New Project
@@ -43,7 +47,7 @@ const promptProject = () => {
     {
       type: 'input',
       name: 'name',
-      message: 'What is the anme of your project?'
+      message: 'What is the name of your project?'
     },
     {
       type: 'input',
@@ -54,7 +58,7 @@ const promptProject = () => {
       type: 'checkbox',
       name: 'languages',
       message: 'What did you build this project with? (Check all that apply)',
-      choices: ['Javascript', 'HTML', 'CSS', 'ES6','jQuery','Bootstrap', 'Node']
+      choices: ['Javascript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
     },
     {
       type: 'input',
@@ -66,16 +70,26 @@ const promptProject = () => {
       name: 'feature',
       message: 'Would you like to feature this project?',
       default: false
-    },{
+    },
+    {
       type: 'confirm',
       name: 'confirmAddProject',
       message: 'Would you like to enter another project?',
       default: false
     }
-  ]);
+  ])
+    .then(projectData => {
+      portfolioData.projects.push(projectData);
+      if (projectData.confirmAddProject) {
+        return promptProject(portfolioData);
+      } else {
+        return portfolioData;
+      }
+    });
 };
 
 promptUser()
-  .then(answers => console.log(answers))
   .then(promptProject)
-  .then(projectAnswers => console.log(projectAnswers));
+  .then(portfolioData => {
+    console.log(portfolioData);
+  })
