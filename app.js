@@ -135,12 +135,11 @@ promptUser()
   .then(portfolioData => {
     console.log(portfolioData);
     // const pageHTML = generatePage(profileName, github);
-    const pageHTML = generatePage(profileName, github);
+    const pageHTML = generatePage(portfolioData);
 
+    fs.writeFile('index.html', pageHTML, err => {
+      if (err) throw err;
 
-    // fs.writeFile('index.html', pageHTML, err => {
-    //   if (err) throw err;
-
-    //   console.log('Portfolio complete! Check out the index.html to see the output!')
-    // });
+      console.log('Portfolio complete! Check out the index.html to see the output!')
+    });
   });
