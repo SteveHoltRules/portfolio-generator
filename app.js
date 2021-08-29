@@ -1,17 +1,8 @@
 const inquirer = require('inquirer');
 
-// const fs = require('fs');
+const fs = require('fs');
 
-// const generatePage = require('./src/page-template.js');
-
-// const pageHTML = generatePage(profileName, github);
-
-
-// fs.writeFile('index.html', pageHTML, err => {
-//   if (err) throw err;
-
-//   console.log('Portfolio complete! Check out the index.html to see the output!')
-// });
+const generatePage = require('./src/page-template.js');
 
 const promptUser = () => {
   return inquirer.prompt([
@@ -19,13 +10,13 @@ const promptUser = () => {
       type: 'input',
       name: 'name',
       message: 'What is your name? (Required)',
-    //validate creates a new variable that has a name. 
-    //what this means is that this section is expecting a value before
-    //the user can move past it. If nothing is received the code is stalled`
+      //validate creates a new variable that has a name. 
+      //what this means is that this section is expecting a value before
+      //the user can move past it. If nothing is received the code is stalled`
       validate: nameInput => {
-        if(nameInput) {
+        if (nameInput) {
           return true;
-        }else {
+        } else {
           console.log('Please enter your name!');
           return false;
         }
@@ -36,9 +27,9 @@ const promptUser = () => {
       name: 'github',
       message: 'Enter your GitHub Username (Required)',
       validate: gitHubUserNameInput => {
-        if(gitHubUserNameInput) {
+        if (gitHubUserNameInput) {
           return true;
-        }else {
+        } else {
           console.log('Please enter your GitHub User Name');
           return false;
         }
@@ -56,7 +47,7 @@ const promptUser = () => {
       type: 'input',
       name: 'about',
       message: 'Provide some information about yourself:',
-      when: ({confirmAbout}) => {
+      when: ({ confirmAbout }) => {
         if (confirmAbout) {
           return true;
         } else {
@@ -89,7 +80,7 @@ const promptProject = portfolioData => {
       name: 'description',
       message: 'Provide a description of the project (Required)',
       validate: projectDescription => {
-        if(projectDescription) {
+        if (projectDescription) {
           return true;
         } else {
           console.log('Please enter a project description');
@@ -108,7 +99,7 @@ const promptProject = portfolioData => {
       name: 'link',
       message: 'Enter the GitHub link to your project. (Required)',
       validate: gitHublink => {
-        if(gitHublink) {
+        if (gitHublink) {
           return true;
         } else {
           console.log('Please enter a gitHub link');
@@ -143,4 +134,13 @@ promptUser()
   .then(promptProject)
   .then(portfolioData => {
     console.log(portfolioData);
-  })
+    // const pageHTML = generatePage(profileName, github);
+    const pageHTML = generatePage(profileName, github);
+
+
+    // fs.writeFile('index.html', pageHTML, err => {
+    //   if (err) throw err;
+
+    //   console.log('Portfolio complete! Check out the index.html to see the output!')
+    // });
+  });
