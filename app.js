@@ -1,10 +1,16 @@
 const inquirer = require('inquirer');
 
-// const fs = require('fs');
+const fs = require('fs');
 
-// const generatePage = require('./src/page-template.js');
+const generatePage = require('./src/page-template.js');
 
-// const pageHTML = generatePage(profileName, github);
+const mockData = {
+  name: 'Matt',
+  github: 'SteveHoltRules',
+  projects: ['Project1','Project2']
+}
+
+const pageHTML = generatePage(mockData);
 
 
 // fs.writeFile('index.html', pageHTML, err => {
@@ -14,58 +20,62 @@ const inquirer = require('inquirer');
 // });
 
 const promptUser = () => {
+  
   return inquirer.prompt([
     {
-      type: 'input',
-      name: 'name',
-      message: 'What is your name? (Required)',
-    //validate creates a new variable that has a name. 
-    //what this means is that this section is expecting a value before
-    //the user can move past it. If nothing is received the code is stalled`
-      validate: nameInput => {
-        if(nameInput) {
-          return true;
-        }else {
-          console.log('Please enter your name!');
-          return false;
-        }
-      }
-    },
-    {
-      type: 'input',
-      name: 'github',
-      message: 'Enter your GitHub Username (Required)',
-      validate: gitHubUserNameInput => {
-        if(gitHubUserNameInput) {
-          return true;
-        }else {
-          console.log('Please enter your GitHub User Name');
-          return false;
-        }
-      }
-    },
-    {
-      //type is confirm: confirm answer type automatically turns y to true and n to false
-      type: 'confirm',
-      name: 'confirmAbout',
-      message: 'Would you like to enter some information about yourself for an "About" section?',
-      //default true means that the code returns true so that it can contine to the next line. The user input is evaluated in the next section.
-      default: true
-    },
-    {
-      type: 'input',
-      name: 'about',
-      message: 'Provide some information about yourself:',
-      when: ({confirmAbout}) => {
-        if (confirmAbout) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      pageHTML
+    }])
+  //   {
+  //     type: 'input',
+  //     name: 'name',
+  //     message: 'What is your name? (Required)',
+  //   //validate creates a new variable that has a name. 
+  //   //what this means is that this section is expecting a value before
+  //   //the user can move past it. If nothing is received the code is stalled`
+  //     validate: nameInput => {
+  //       if(nameInput) {
+  //         return true;
+  //       }else {
+  //         console.log('Please enter your name!');
+  //         return false;
+  //       }
+  //     }
+  //   },
+  //   {
+  //     type: 'input',
+  //     name: 'github',
+  //     message: 'Enter your GitHub Username (Required)',
+  //     validate: gitHubUserNameInput => {
+  //       if(gitHubUserNameInput) {
+  //         return true;
+  //       }else {
+  //         console.log('Please enter your GitHub User Name');
+  //         return false;
+  //       }
+  //     }
+  //   },
+  //   {
+  //     //type is confirm: confirm answer type automatically turns y to true and n to false
+  //     type: 'confirm',
+  //     name: 'confirmAbout',
+  //     message: 'Would you like to enter some information about yourself for an "About" section?',
+  //     //default true means that the code returns true so that it can contine to the next line. The user input is evaluated in the next section.
+  //     default: true
+  //   },
+  //   {
+  //     type: 'input',
+  //     name: 'about',
+  //     message: 'Provide some information about yourself:',
+  //     when: ({confirmAbout}) => {
+  //       if (confirmAbout) {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     }
 
-    }
-  ]);
+  //   }
+  // ]);
 };
 
 
@@ -139,8 +149,19 @@ const promptProject = portfolioData => {
     });
 };
 
-promptUser()
-  .then(promptProject)
-  .then(portfolioData => {
-    console.log(portfolioData);
-  })
+pageHTML;
+promptProject();
+
+
+// promptUser()
+//   .then(promptProject)
+//   .then(portfolioData => {
+//     const pageHTML = generatePage(portfolioData);
+    
+
+//     fs.writeFile('./index.html', pageHTML, err => {
+//       if (err) throw new Error(err);
+
+//       console.log('Page created! Check Out index.html int this directory to see it!');
+//     });
+//   });
