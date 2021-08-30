@@ -133,9 +133,11 @@ const promptProject = portfolioData => {
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
+    //generate page is the export of page-template
     return generatePage(portfolioData);
   })
   .then(pageHtml => {
+    //writeFile comes from the generate-site
     return writeFile(pageHtml);
   })
   .then(writeFileResponse => {
@@ -143,6 +145,7 @@ promptUser()
     return copyFile();
   })
   .then(copyFileResponse => {
+    //copyFile comes from the generate-site
     console.log(copyFileResponse);
   })
   .catch(err => {
